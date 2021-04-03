@@ -21,7 +21,23 @@
         <a id="nav-search-btn" class="nav-icon" title="<%= __('search') %>"></a>
       </nav>
       <div id="search-form-wrap">
-        <%- search_form({button: '&#xF002;', text: __('search')}) %>
+        <!-- <%- search_form({button: '&#xF002;', text: __('search')}) %> -->
+        <div accept-charset="UTF-8" class="search-form">
+          <input type="search" id="local-search-input" class="search-form-input" placeholder="搜索" onKeyDown="onkey(event)">
+          <button onclick="searchFunc('./search.xml','local-search-input','local-search-result')" class="search-form-submit"></button>
+        </div>
+        <div class="widget-wrap">
+          <h3 class="widget-title"><%= __('recent_posts') %></h3>
+          <div class="widget">
+            <ul>
+              <% site.posts.sort('date', -1).limit(theme.recent_posts_limits).each(function(post){ %>
+                <li>
+                  <a href="<%- url_for(post.path) %>"><%= post.title || '(no title)' %></a>
+                </li>
+              <% }) %>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
